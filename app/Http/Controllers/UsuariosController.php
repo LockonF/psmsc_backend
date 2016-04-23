@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Usuarios;
+use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +15,7 @@ class UsuariosController extends Controller
         /*$users = User::all();
         return $users;*/
     
-    $users = Usuarios::all();
+    $users = User::all();
 
     	return response()->json([
     			"usuarios"=> $users
@@ -25,7 +25,7 @@ class UsuariosController extends Controller
 
     public function show($idUser)
     {
-        $user = \App\Models\Usuarios::find($idUser);
+        $user = User::find($idUser);
         return response()->json([
                 "msg"=> "success",
                 "user"=> $user
@@ -44,10 +44,9 @@ class UsuariosController extends Controller
 
     public function store(Request $request)
     {   
-        $user = new \App\Models\Usuarios();
+        $user = new User();
         $user->username = $request->username;
         $user->password = $request->password;
-        $user->Rpassword = $request->Rpassword;
         $user->email = $request->email;
         $user->FechaNac = $request->FechaNac;
         $user->save();
@@ -61,10 +60,9 @@ class UsuariosController extends Controller
 
     public function update(Request $request, $idUser)
     {
-        $user = \App\Models\Usuarios::find($idUser);
+        $user = User::find($idUser);
         $user->username = $request->username;
         $user->password = $request->password;
-        $user->Rpassword = $request->Rpassword;
         $user->save();
 
         return response()->json([
@@ -73,9 +71,9 @@ class UsuariosController extends Controller
         );
     }
 
-    public function destroy()
+    public function destroy($idUser)
     {
-        $user = \App\Models\Usuarios::find($idUser);
+        $user = User::find($idUser);
         $user->delete();
 
         return response()->json([
