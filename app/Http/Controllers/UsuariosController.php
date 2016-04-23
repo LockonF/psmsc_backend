@@ -7,14 +7,12 @@ use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Validator;
+
 class UsuariosController extends Controller
 {
     public function index()
     {
-    
-        /*$users = User::all();
-        return $users;*/
-    
     $users = User::all();
 
     	return response()->json([
