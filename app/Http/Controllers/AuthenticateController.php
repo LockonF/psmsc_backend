@@ -35,7 +35,9 @@ class AuthenticateController extends Controller
         }
         //\Storage::disk('local')->put('token','token');
         // all good so return the token
-        return response()->json([compact('token')]);
+        return response()->json([
+            "msg" => "Success",
+            compact('token')]);
     }
 
     /*protected function validator(Request $request)
