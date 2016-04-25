@@ -28,7 +28,7 @@ class PublicacionesController extends Controller
         //$Publicaciones = Publicaciones::Search($request->nombre);
         return response()->json([
             "msg" => "success",
-            "Publicaciones" => $Publicaciones->toArray()
+            "publicaciones" => $Publicaciones->toArray()
         ], 200
         );
     }
@@ -63,10 +63,6 @@ class PublicacionesController extends Controller
                 $archivo = $request->file('file');
                 $fileName = $archivo->getClientOriginalName();
                 \Storage::disk('local')->put($fileName, \File::get($archivo));
-            } else {
-                return response()->json([
-                    "msg" => "failure: There is no image."
-                ], 500);
             }
             //Proceso para recuperar la ubicación de la imagen:
             //$pathImage = \Storage::get($archivo);
@@ -78,6 +74,12 @@ class PublicacionesController extends Controller
             $Publication->finOferta = $request->finOferta;
             $Publication->detallesUbicacion = $request->detallesUbicacion;
             $Publication->user_id = $user->id;
+            if($request->has('longitud')){
+                $Publication->longitud = $request->longitud;
+            }
+            if($request->has('latitud')){
+                $Publication->latitud = $request->latitud;
+            }
             $Publication->save();
 
             return response()->json($Publication, 200
