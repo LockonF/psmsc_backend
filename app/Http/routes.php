@@ -20,19 +20,21 @@ Route::group(['middleware' => 'cors','prefix'=>'api'],function(){
 	Route::post('getUser','AuthenticateController@checkUser');
 	Route::post('create','AuthenticateController@create');
 	Route::post('login','AuthenticateController@authenticate');
-	Route::get("usuarios","UsuariosController@index");
+	Route::get('usuarios','UsuariosController@index');
+
+	//Rutas Categoria
 	Route::get('categoria','CategoriaController@index');
 	Route::post('categoria','CategoriaController@store');
 	Route::put('categoria/{idCategoria}','CategoriaController@update');
 	Route::delete('categoria','CategoriaController@destroy');
+
+	//Rutas Publicaciones
 	Route::post('crearPublicacion','PublicacionesController@store');
 	Route::post('buscarPublicacion', 'PublicacionesController@busqueda');
-	//Route::post('recuperarContrasena','Auth/PasswordController');
-
-	//Publicaciones
 	Route::get('publicaciones','PublicacionesController@showByUsuario');
 	Route::put('publicaciones/{id}',
-		'PublicacionesController@update')->where(['id'=>'[0-9]+']);
+	'PublicacionesController@update')->where(['id'=>'[0-9]+']);
+	Route::get('getPublicaciones','PublicacionesController@index');
 
 });
 //Route::auth();
