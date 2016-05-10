@@ -9,6 +9,7 @@ use App\User;
 use App\Http\Requests;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Validator;
+use Storage;
 
 class AuthenticateController extends Controller
 {
@@ -113,6 +114,8 @@ class AuthenticateController extends Controller
             $user->FechaNac = $request->FechaNac;
             try{
                 $user->save();
+                $directory = '/Usuarios/'.$request->email;
+                Storage::makeDirectory($directory);
                 return response()->json(['msg'=>'success'],200);
             }catch (QueryException $e)
             {
